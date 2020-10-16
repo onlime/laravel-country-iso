@@ -9,7 +9,6 @@
             "email": "mail@eelcoluurtsema.nl"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.3.0"
     },
