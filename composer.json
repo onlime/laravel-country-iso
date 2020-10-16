@@ -1,0 +1,31 @@
+{
+    "name": "eelcol/laravel-country-iso",
+    "description": "Convert country ISO codes to full country name - for laravel",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eelco Luurtsema",
+            "email": "mail@eelcoluurtsema.nl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eelcol\\LaravelCountryIso\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Eelcol\\LaravelCountryIso\\ServiceProvider"
+            ]
+         }
+     }
+}
