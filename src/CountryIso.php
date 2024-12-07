@@ -1,30 +1,21 @@
-<?php 
+<?php
 
 namespace Eelcol\LaravelCountryIso;
 
 use Eelcol\LaravelCountryIso\Contracts\CountryIsoContract;
-use Eelcol\LaravelCountryIso\Country;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 
 class CountryIso implements CountryIsoContract
 {
-    /**
-    * @var array
-    */
-    protected $loaded_languages;
+    protected array $loaded_languages;
+
+    protected array $countries;
 
     /**
-    * @var array
-    */
-    protected $countries;
-
-    /**
-    * @method getCountries
-    * Returns all countries ordered by ISO-code asc
-    */
-    public function getCountries($lang = null):Collection
+     * Returns all countries ordered by ISO-code asc
+     */
+    public function getCountries(?string $lang = null): Collection
     {
         $list = Lang::get('countryiso::countries', [], $lang);
 
@@ -32,45 +23,35 @@ class CountryIso implements CountryIsoContract
     }
 
     /**
-    * @method convert
-    * Converts ISO to readable country name
-    * @return string | null
-    */
-    public function convert(string $iso, string $lang = null)
+     * Converts ISO to readable country name
+     */
+    public function convert(string $iso, ?string $lang = null): ?string
     {
         return Lang::get("countryiso::countries.{$iso}", [], $lang);
     }
 
-    /**
-    * @method getCountryFromIso
-    * @return Eelco\LaravelCountryIso\Country
-    */
-    public function getCountryFromIso(string $iso, string $lang = null):Country
+    public function getCountryFromIso(string $iso, ?string $lang = null): Country
     {
         return $this->getCountries($lang)
-                ->where('iso', strtoupper($iso))
-                ->first();
+            ->where('iso', strtoupper($iso))
+            ->first();
     }
 
     /**
-    * @method convertToIso
-    * Converts a country to ISO
-    * @return string | null
-    */
-    public function convertToIso(string $readable_name, string $lang = null)
+     * Converts a country to ISO
+     */
+    public function convertToIso(string $readable_name, ?string $lang = null): ?string
     {
         return $this->getCountries($lang)
-                ->where('readable_name', $readable_name)
-                ->first()
-                ->iso ?? null;
+            ->where('readable_name', $readable_name)
+            ->first()
+            ->iso ?? null;
     }
 
-    private function convertListToObjects(array $list)
+    private function convertListToObjects(array $list): Collection
     {
-        array_walk($list, function(&$val, $key) {
-
+        array_walk($list, function (&$val, $key) {
             $val = new Country($key, $val);
-
         });
 
         return collect(array_values($list));

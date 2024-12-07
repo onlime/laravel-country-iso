@@ -1,27 +1,17 @@
-<?php 
+<?php
 
 namespace Eelcol\LaravelCountryIso;
 
 use Eelcol\LaravelCountryIso\Contracts\CountryIsoContract;
-use Eelcol\LaravelCountryIso\CountryIso;
-use Illuminate\Routing\Router;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        /**
-        * Register singleton
-        */
-        $this->app->singleton('CountryIso', function ($app) {
-
-            return new CountryIso;
-        });
+        $this->app->singleton('CountryIso', fn () => new CountryIso);
 
         $this->app->bind(
             CountryIsoContract::class,
@@ -31,10 +21,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
-    public function boot(Router $router)
+    public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'countryiso');
     }
