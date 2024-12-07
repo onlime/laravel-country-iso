@@ -27,5 +27,8 @@
                 "Eelcol\\LaravelCountryIso\\ServiceProvider"
             ]
          }
-     }
+     },
+    "require-dev": {
+        "laravel/pint": "^1.18"
+    }
 }

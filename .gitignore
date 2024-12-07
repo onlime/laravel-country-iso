@@ -1,0 +1,6 @@
+/vendor/
+/.idea
+/composer.lock
+/tests/_coverage
+.phpunit.result.cache
+.pint.cache.json
